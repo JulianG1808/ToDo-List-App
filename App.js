@@ -1,46 +1,87 @@
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard  } from 'react-native';
-import Task from './components/Task';
+import React, { useState } from "react";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  Alert,
+} from "react-native";
+import Task from "./components/Task";
 
 export default function App() {
-  const [task, setTask] = useState(); //new task
-  const [taskArray, setTaskArray] = useState([]) //all the tasks
+  const [task, setTask] = useState(""); //new task
+  const [taskArray, setTaskArray] = useState([]); //all the tasks
 
   const handleAddTask = () => {
-    Keyboard.dismiss(); //this close the keyboard
-    setTaskArray([...taskArray, task])
-    setTask(null)
-  }
+    if (task === "") {
+      Alert.alert("Oops!", "You must write something to add a task");
+    } else if (task.length < 4) {
+      Alert.alert("Oops!", "Task must be over 3 chars long");
+    } else {
+      Keyboard.dismiss(); //this close the keyboard
+      setTaskArray([...taskArray, task]);
+      setTask("");
+    }
+  };
 
-  const completeTask = (idx) => {
-    let itemsCopy = [...taskArray]
-    itemsCopy.splice(idx, 1)
-    setTaskArray(itemsCopy)
-  }
+  const completeTask = () => {
+    Alert.alert(
+      //This is title
+      "Delete Task",
+      //This is body text
+      "Are you sure?",
+      [
+        { text: "Yes", onPress: () => deleteTask() },
+        {
+          text: "No",
+          onPress: () => console.log("No Pressed"),
+          style: "cancel",
+        },
+      ],
+      { cancelable: false }
+      //on clicking out side, Alert will not dismiss
+    );
+  };
+
+  const deleteTask = (idx) => {
+    let itemsCopy = [...taskArray];
+    itemsCopy.splice(idx, 1);
+    setTaskArray(itemsCopy);
+  };
 
   return (
     <View style={styles.container}>
-    
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>List of Tasks</Text>
 
         <View style={styles.items}>
-          {
+          {taskArray.length <= 0 ? (
+            <Text style={styles.emptyMsg}>You don't have any task</Text>
+          ) : (
             taskArray.map((elem, idx) => {
-              return (<TouchableOpacity key={idx} onPress={() => completeTask()}>
-                <Task text={elem}/>
-              </TouchableOpacity> )
+              return (
+                <TouchableOpacity key={idx} onPress={() => completeTask()}>
+                  <Task text={elem} />
+                </TouchableOpacity>
+              );
             })
-          }
+          )}
         </View>
-
       </View>
 
       <KeyboardAvoidingView //this show the keyboard
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardInput}
       >
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
+        <TextInput
+          style={styles.input}
+          placeholder={"Write a task"}
+          value={task}
+          onChangeText={(text) => setTask(text)}
+        />
 
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addTaskButton}>
@@ -48,7 +89,6 @@ export default function App() {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-
     </View>
   );
 }
@@ -56,45 +96,53 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED'
+    backgroundColor: "#E8EAED",
   },
 
   tasksWrapper: {
     paddingTop: 80,
     paddingLeft: 20,
+    paddingRight: 20,
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   items: {
     marginTop: 30,
   },
 
   keyboardInput: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
     width: 250,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
-    borderColor: '#C0C0C0',
+    borderColor: "#C0C0C0",
     borderWidth: 1,
   },
   addTaskButton: {
     width: 60,
     height: 60,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  addTaskText: {},
+  addTaskText: {
+    fontSize: 30,
+    fontWeight: '200',
+  },
+  emptyMsg: {
+    textAlign: "center",
+    fontSize: 18,
+  }
 });
