@@ -1,21 +1,29 @@
-import React from "react"
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState } from "react"
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 const Task = (props) => {
+  const [taskCondition, setTaskCondition] = useState(false)
+
+  const completeTask = () => {
+    taskCondition ?
+    setTaskCondition(false) :
+    setTaskCondition(true)
+  }
+
   return (
-    <View style={styles.item}>
-      <View style={styles.itemSectionLeft}>
-        <View style={styles.squareIcon}></View>
-        <Text style={styles.text}>{props.text}</Text>
+    <TouchableOpacity style={taskCondition ? styles.itemTrue : styles.itemFalse} onPress={() => completeTask()}>
+      <View style={styles.itemSectionLeft} >
+        <View style={taskCondition ? styles.squareIconTrue : styles.squareIconFalse}></View>
+        <Text style={taskCondition ? styles.textTrue : styles.textFalse}>{props.text}</Text>
       </View>
-      <View style={styles.circularIcon}></View>
-    </View>
+      <View style={taskCondition ? styles.circularIconTrue : styles.circularIconFalse}></View>
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#fff',
+  itemTrue: {
+    backgroundColor: '#f1f1f1',
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
@@ -23,29 +31,66 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
   },
+  itemFalse: {
+    backgroundColor: '#f1f1f1',
+    padding: 15,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    opacity: 0.5,
+  },
+ //---------------------------------------------------
   itemSectionLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap'
   },
-  squareIcon: {
+  //---------------------------------------------------
+  squareIconTrue: {
     width: 24,
     height: 24,
-    borderColor: 'red',
-    backgroundColor: 'red',
-    opacity: 0.4,
+    borderColor: 'green',
+    backgroundColor: 'green',
+    opacity: 0.5,
     borderRadius: 5,
     marginRight: 15
   },
-  text: {
+  squareIconFalse: {
+    width: 24,
+    height: 24,
+    borderColor: 'green',
+    backgroundColor: 'green',
+    opacity: 0.2,
+    borderRadius: 5,
+    marginRight: 15
+  },
+  //---------------------------------------------------
+  textTrue: {
     maxWidth: '80%',
   },
-  circularIcon: {
+  textFalse: {
+    maxWidth: '80%',
+    textDecorationLine: 'line-through'
+  },
+  //---------------------------------------------------
+  circularIconTrue: {
     width: 12,
     height: 12,
-    borderColor: 'red',
+    borderColor: 'green',
     borderWidth: 2,
     borderRadius: 5,
+    opacity: 0.5,
+
+  },
+  circularIconFalse: {
+    width: 12,
+    height: 12,
+    borderColor: 'green',
+    borderWidth: 2,
+    borderRadius: 5,
+    opacity: 0.2,
   },
 });
 
