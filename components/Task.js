@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 const Task = (props) => {
-  const [taskCondition, setTaskCondition] = useState(false)
+  const [taskCondition, setTaskCondition] = useState(true)
 
   const completeTask = () => {
     taskCondition ?
