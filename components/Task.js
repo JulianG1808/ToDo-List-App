@@ -2,22 +2,22 @@ import React, { useState } from "react"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 const Task = (props) => {
-  const [taskCondition, setTaskCondition] = useState(true)
+  // const [taskCondition, setTaskCondition] = useState(true)
 
-  const completeTask = () => {
-    taskCondition ?
-    setTaskCondition(false) :
-    setTaskCondition(true)
-  }
+  // const completeTask = () => {
+  //   taskCondition ?
+  //   setTaskCondition(false) :
+  //   setTaskCondition(true)
+  // }
 
   return (
-    <TouchableOpacity style={taskCondition ? styles.itemTrue : styles.itemFalse} onPress={() => completeTask()}>
+    <View style={styles.itemTrue /* taskCondition ? styles.itemTrue : styles.itemFalse */} /* onPress={() => completeTask()} */>
       <View style={styles.itemSectionLeft} >
-        <View style={taskCondition ? styles.squareIconTrue : styles.squareIconFalse}></View>
-        <Text style={taskCondition ? styles.textTrue : styles.textFalse}>{props.text}</Text>
+        <View style={styles.squareIconTrue /* taskCondition ? styles.squareIconTrue : styles.squareIconFalse */}></View>
+        <Text style={styles.textTrue /* taskCondition ? styles.textTrue : styles.textFalse */}>{props.text}</Text>
       </View>
-      <View style={taskCondition ? styles.circularIconTrue : styles.circularIconFalse}></View>
-    </TouchableOpacity>
+      <View style={styles.circularIconTrue /* taskCondition ? styles.circularIconTrue : styles.circularIconFalse */}></View>
+    </View>
   )
 }
 
