@@ -27,7 +27,7 @@ export default function App() {
     }
   };
 
-  const completeTask = () => {
+  // const completeTask = () => {
     // Alert.alert(
     //   //This is title
     //   "Delete Task",
@@ -44,7 +44,7 @@ export default function App() {
     //   { cancelable: false }
     //   //on clicking out side, Alert will not dismiss
     // );
-  };
+  // };
 
   const deleteTask = (idx) => {
     let itemsCopy = [...taskArray];
