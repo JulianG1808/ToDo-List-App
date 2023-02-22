@@ -28,22 +28,22 @@ export default function App() {
   };
 
   const completeTask = () => {
-    Alert.alert(
-      //This is title
-      "Delete Task",
-      //This is body text
-      "Are you sure?",
-      [
-        { text: "Yes", onPress: () => deleteTask() },
-        {
-          text: "No",
-          onPress: () => console.log("No Pressed"),
-          style: "cancel",
-        },
-      ],
-      { cancelable: false }
-      //on clicking out side, Alert will not dismiss
-    );
+    // Alert.alert(
+    //   //This is title
+    //   "Delete Task",
+    //   //This is body text
+    //   "Are you sure?",
+    //   [
+    //     { text: "Yes", onPress: () => deleteTask() },
+    //     {
+    //       text: "No",
+    //       onPress: () => console.log("No Pressed"),
+    //       style: "cancel",
+    //     },
+    //   ],
+    //   { cancelable: false }
+    //   //on clicking out side, Alert will not dismiss
+    // );
   };
 
   const deleteTask = (idx) => {
@@ -63,7 +63,7 @@ export default function App() {
           ) : (
             taskArray.map((elem, idx) => {
               return (
-                <TouchableOpacity key={idx} onPress={() => completeTask()}>
+                <TouchableOpacity key={idx} onPress={() => deleteTask()}>
                   <Task text={elem} />
                 </TouchableOpacity>
               );
