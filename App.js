@@ -47,9 +47,29 @@ export default function App() {
   // };
 
   const deleteTask = (idx) => {
-    let itemsCopy = [...taskArray];
-    itemsCopy.splice(idx, 1);
-    setTaskArray(itemsCopy);
+    Alert.alert(
+      //This is title
+      "Delete Task",
+      //This is body text
+      "Are you sure?",
+      [
+        { text: "Yes", onPress: () => 
+          {
+            let itemsCopy = [...taskArray]
+            itemsCopy.splice(idx, 1)
+            setTaskArray(itemsCopy)
+          }
+        },
+        {
+          text: "No",
+          onPress: () => console.log("No Pressed"),
+          style: "cancel",
+        },
+      ],
+      { cancelable: false }
+      //on clicking out side, Alert will not dismiss
+    );
+    
   };
 
   return (
